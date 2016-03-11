@@ -33,11 +33,19 @@ class {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}} extends Mage_Admi
                 return $result['file'];
             }
         } catch (Exception $e) {
-            if ($e->getCode() != Varien_File_Uploader::TMP_NAME_EMPTY) {
-                throw $e;
+            if ($_FILES[$input]['error'] == UPLOAD_ERR_INI_SIZE) {
+                /* @var $helper Mage_Core_Helper_Data */
+                $helper = Mage::helper('core');
+                $message = $helper->__('File exceeds maximum allowed upload size: %s', $_FILES[$input]['name']);
+                Mage::throwException($message);
+                
             } else {
-                if (isset($data[$input]['value'])) {
-                    return $data[$input]['value'];
+                if ($e->getCode() != Varien_File_Uploader::TMP_NAME_EMPTY) {
+                    throw $e;
+                } else {
+                    if (isset($data[$input]['value'])) {
+                        return $data[$input]['value'];
+                    }
                 }
             }
         }
