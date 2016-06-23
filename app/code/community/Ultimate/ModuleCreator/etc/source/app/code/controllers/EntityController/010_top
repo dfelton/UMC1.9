@@ -1,7 +1,7 @@
 <?php
 {{License}}
 /**
- * {{EntityLabel}} front contrller
+ * {{EntityLabel}} front controller
  *
  * @category    {{Namespace}}
  * @package     {{Namespace}}_{{Module}}
